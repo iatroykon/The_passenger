@@ -1,0 +1,2856 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Passenger | Premium Cafe-Bar-Bistro | Kastoria, Greece</title>
+<meta name="description" content="The Passenger - Kastoria's premier all-day cafe-bar-bistro overlooking Lake Orestiada. Premium Hausbrandt coffee by day, elite cocktail lounge by night.">
+<meta name="keywords" content="The Passenger, Kastoria, cafe, bar, bistro, cocktails, Hausbrandt, Lake Orestiada, Greece">
+<meta property="og:title" content="The Passenger | Kastoria">
+<meta property="og:description" content="From morning espresso to midnight cocktails. Lakeside luxury redefined.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600&family=Inter:wght@200;300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ============================================
+   RESET & BASE
+   ============================================ */
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --black-deep: #0B0B0B;
+  --black-rich: #121212;
+  --black-card: #1a1a1a;
+  --black-elevated: #222222;
+  --gold-primary: #C9A84C;
+  --gold-light: #E8D48B;
+  --gold-dim: #8B7530;
+  --gold-glow: rgba(201, 168, 76, 0.15);
+  --cream: #F5F0E8;
+  --cream-muted: #B8B0A2;
+  --white-smoke: #E8E4DC;
+  --charcoal: #2A2A2A;
+  --velvet: #1E1B2E;
+  --neon-amber: rgba(255, 170, 50, 0.08);
+  --font-serif: 'Playfair Display', 'Georgia', serif;
+  --font-sans: 'Inter', 'Helvetica Neue', sans-serif;
+  --font-elegant: 'Cormorant Garamond', 'Georgia', serif;
+  --ease-smooth: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-magnetic: cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+html {
+  scroll-behavior: auto;
+  overflow-x: hidden;
+  background: var(--black-deep);
+  scrollbar-width: thin;
+  scrollbar-color: var(--gold-dim) var(--black-deep);
+}
+
+html::-webkit-scrollbar { width: 6px; }
+html::-webkit-scrollbar-track { background: var(--black-deep); }
+html::-webkit-scrollbar-thumb { background: var(--gold-dim); border-radius: 3px; }
+
+body {
+  font-family: var(--font-sans);
+  background: var(--black-deep);
+  color: var(--cream);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+::selection {
+  background: var(--gold-primary);
+  color: var(--black-deep);
+}
+
+a { text-decoration: none; color: inherit; }
+img { display: block; max-width: 100%; }
+button { border: none; background: none; cursor: pointer; font-family: inherit; }
+
+/* ============================================
+   LOADER
+   ============================================ */
+.loader-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--black-deep);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+
+.loader-screen.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.loader-logo {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 4vw, 2.8rem);
+  color: var(--gold-primary);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  opacity: 0;
+  transform: translateY(20px);
+}
+
+.loader-line {
+  width: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+  margin-top: 2rem;
+  transition: width 1.5s var(--ease-expo);
+}
+
+.loader-line.active { width: 200px; }
+
+.loader-sub {
+  font-family: var(--font-sans);
+  font-size: 0.7rem;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--cream-muted);
+  margin-top: 1.5rem;
+  opacity: 0;
+}
+
+/* ============================================
+   NAVIGATION
+   ============================================ */
+.nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+  padding: 1.5rem 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background 0.5s, padding 0.5s, backdrop-filter 0.5s;
+}
+
+.nav.scrolled {
+  background: rgba(11, 11, 11, 0.92);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 1rem 3rem;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.08);
+}
+
+.nav-brand {
+  font-family: var(--font-serif);
+  font-size: 0.9rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold-primary);
+  font-weight: 600;
+}
+
+.nav-brand span {
+  display: block;
+  font-family: var(--font-sans);
+  font-size: 0.48rem;
+  letter-spacing: 0.4em;
+  color: var(--cream-muted);
+  font-weight: 300;
+  margin-top: 2px;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2.5rem;
+  list-style: none;
+}
+
+.nav-links a {
+  font-size: 0.72rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cream-muted);
+  font-weight: 400;
+  position: relative;
+  padding-bottom: 4px;
+  transition: color 0.3s;
+}
+
+.nav-links a::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background: var(--gold-primary);
+  transition: width 0.4s var(--ease-expo);
+}
+
+.nav-links a:hover { color: var(--gold-primary); }
+.nav-links a:hover::after { width: 100%; }
+
+/* Mobile menu toggle */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 6px;
+  cursor: pointer;
+  z-index: 1001;
+}
+
+.nav-toggle span {
+  width: 28px;
+  height: 1px;
+  background: var(--gold-primary);
+  transition: all 0.4s var(--ease-expo);
+  transform-origin: center;
+}
+
+.nav-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+.nav-toggle.active span:nth-child(2) { opacity: 0; }
+.nav-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+.hero {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  background: var(--black-deep);
+}
+
+.hero-bg-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.hero-bg-layer::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 50% at 20% 40%, rgba(201, 168, 76, 0.06) 0%, transparent 70%),
+    radial-gradient(ellipse 60% 60% at 80% 60%, rgba(30, 27, 46, 0.4) 0%, transparent 70%),
+    radial-gradient(ellipse 100% 80% at 50% 120%, rgba(201, 168, 76, 0.03) 0%, transparent 60%);
+  z-index: 2;
+}
+
+.hero-img-container {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+
+.hero-img-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.25) saturate(0.7) contrast(1.1);
+  transform: scale(1.1);
+}
+
+.hero-grain {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  opacity: 0.035;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-size: 200px;
+  pointer-events: none;
+}
+
+.hero-vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 4;
+  background: radial-gradient(ellipse at center, transparent 40%, var(--black-deep) 100%);
+  pointer-events: none;
+}
+
+/* Hero SVG wave at bottom */
+.hero-svg-wave {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  z-index: 6;
+  line-height: 0;
+}
+
+.hero-svg-wave svg {
+  width: 100%;
+  height: 120px;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+  max-width: 900px;
+  padding: 0 2rem;
+}
+
+.hero-overline {
+  font-family: var(--font-sans);
+  font-size: 0.58rem;
+  font-weight: 300;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: rgba(201, 168, 76, 0.35);
+  margin-bottom: 2rem;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.5rem;
+}
+
+.hero-overline::before,
+.hero-overline::after {
+  content: '';
+  width: 30px;
+  height: 1px;
+  background: rgba(201, 168, 76, 0.2);
+}
+
+.hero-title {
+  font-family: var(--font-serif);
+  font-size: clamp(3rem, 8vw, 7.5rem);
+  font-weight: 700;
+  line-height: 0.95;
+  color: var(--cream);
+  margin-bottom: 1.8rem;
+}
+
+.hero-title .word {
+  display: inline-block;
+  overflow: hidden;
+}
+
+.hero-title .word span {
+  display: inline-block;
+  transform: translateY(110%);
+}
+
+.hero-title .accent {
+  color: var(--gold-primary);
+  font-style: italic;
+  font-weight: 500;
+}
+
+.hero-subtitle {
+  font-family: var(--font-elegant);
+  font-size: clamp(1rem, 2vw, 1.35rem);
+  font-weight: 300;
+  color: var(--cream-muted);
+  letter-spacing: 0.08em;
+  line-height: 1.7;
+  max-width: 600px;
+  margin: 0 auto 3rem;
+  opacity: 0;
+}
+
+.hero-cta-group {
+  display: flex;
+  gap: 1.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  opacity: 0;
+}
+
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--black-deep);
+  background: var(--gold-primary);
+  padding: 1rem 2.8rem;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.4s var(--ease-smooth);
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: var(--gold-light);
+  transform: translateX(-100%);
+  transition: transform 0.5s var(--ease-expo);
+}
+
+.btn-primary:hover::before { transform: translateX(0); }
+.btn-primary span { position: relative; z-index: 1; }
+.btn-primary svg { position: relative; z-index: 1; }
+
+.btn-ghost {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--cream-muted);
+  padding: 1rem 2.8rem;
+  border: 1px solid rgba(201, 168, 76, 0.25);
+  transition: all 0.4s var(--ease-smooth);
+}
+
+.btn-ghost:hover {
+  color: var(--gold-primary);
+  border-color: var(--gold-primary);
+  background: rgba(201, 168, 76, 0.05);
+}
+
+.hero-scroll-indicator {
+  position: absolute;
+  bottom: 3.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 6;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
+  opacity: 0;
+}
+
+.hero-scroll-indicator span {
+  font-size: 0.6rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--cream-muted);
+  writing-mode: vertical-rl;
+}
+
+.scroll-line {
+  width: 1px;
+  height: 50px;
+  background: linear-gradient(to bottom, var(--gold-primary), transparent);
+  position: relative;
+  overflow: hidden;
+}
+
+.scroll-line::after {
+  content: '';
+  position: absolute;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--gold-light);
+  animation: scrollDown 2s ease-in-out infinite;
+}
+
+@keyframes scrollDown {
+  0% { top: -100%; }
+  50% { top: 100%; }
+  100% { top: 100%; }
+}
+
+/* ============================================
+   SECTION SHARED STYLES
+   ============================================ */
+.section { position: relative; overflow: hidden; }
+
+.section-pad {
+  padding: clamp(5rem, 12vh, 10rem) clamp(1.5rem, 5vw, 6rem);
+}
+
+.section-label {
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  font-weight: 500;
+  letter-spacing: 0.5em;
+  text-transform: uppercase;
+  color: var(--gold-primary);
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-bottom: 1.5rem;
+}
+
+.section-label::before {
+  content: '';
+  width: 30px;
+  height: 1px;
+  background: var(--gold-dim);
+}
+
+.section-heading {
+  font-family: var(--font-serif);
+  font-size: clamp(2.2rem, 5vw, 4.5rem);
+  font-weight: 600;
+  line-height: 1.1;
+  color: var(--cream);
+  margin-bottom: 1.5rem;
+}
+
+.section-heading .italic {
+  font-style: italic;
+  color: var(--gold-primary);
+  font-weight: 400;
+}
+
+.section-text {
+  font-family: var(--font-elegant);
+  font-size: clamp(1rem, 1.5vw, 1.2rem);
+  font-weight: 300;
+  line-height: 1.9;
+  color: var(--cream-muted);
+  max-width: 580px;
+  letter-spacing: 0.02em;
+}
+
+/* ============================================
+   NARRATIVE / STORY SECTION
+   ============================================ */
+.narrative {
+  background: var(--black-deep);
+  position: relative;
+}
+
+.narrative-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(3rem, 6vw, 8rem);
+  align-items: center;
+}
+
+.narrative-visual {
+  position: relative;
+  height: 600px;
+}
+
+.narrative-img-wrap {
+  position: relative;
+  width: 85%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.narrative-img-wrap img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.8) contrast(1.05);
+  transition: transform 0.8s var(--ease-expo);
+}
+
+.narrative-img-wrap:hover img { transform: scale(1.05); }
+
+.narrative-img-frame {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  right: -20px;
+  bottom: -20px;
+  border: 1px solid var(--gold-dim);
+  pointer-events: none;
+  z-index: -1;
+}
+
+.narrative-float-badge {
+  position: absolute;
+  bottom: -15px;
+  right: -10px;
+  background: var(--black-rich);
+  border: 1px solid rgba(201, 168, 76, 0.15);
+  padding: 0.8rem 1.2rem;
+  z-index: 2;
+}
+
+.narrative-float-badge .nbf-num {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  color: var(--gold-primary);
+  font-weight: 600;
+  line-height: 1;
+}
+
+.narrative-float-badge .nbf-text {
+  font-size: 0.5rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--cream-muted);
+  margin-top: 0.2rem;
+}
+
+.narrative-copy { padding-right: 2rem; }
+
+.narrative-copy .divider-gold {
+  width: 60px;
+  height: 2px;
+  background: linear-gradient(90deg, var(--gold-primary), transparent);
+  margin: 2rem 0;
+}
+
+.narrative-quote {
+  font-family: var(--font-elegant);
+  font-size: clamp(1.1rem, 1.8vw, 1.4rem);
+  font-style: italic;
+  color: var(--cream);
+  line-height: 1.7;
+  padding-left: 1.5rem;
+  border-left: 2px solid var(--gold-dim);
+  margin-top: 2.5rem;
+}
+
+/* SVG ambient texture behind narrative */
+.narrative-ambient-svg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  z-index: 0;
+  opacity: 0.03;
+  pointer-events: none;
+}
+
+/* ============================================
+   EXPERIENCE STRIP
+   ============================================ */
+.experience-strip {
+  background: var(--black-rich);
+  border-top: 1px solid rgba(201, 168, 76, 0.06);
+  border-bottom: 1px solid rgba(201, 168, 76, 0.06);
+  padding: 2.5rem 0;
+  overflow: hidden;
+}
+
+.exp-marquee {
+  display: flex;
+  gap: 4rem;
+  animation: marqueeScroll 25s linear infinite;
+  white-space: nowrap;
+}
+
+.exp-marquee-item {
+  font-family: var(--font-serif);
+  font-size: clamp(1.2rem, 2.5vw, 2rem);
+  font-weight: 300;
+  color: var(--cream-muted);
+  display: flex;
+  align-items: center;
+  gap: 3rem;
+  flex-shrink: 0;
+}
+
+.exp-marquee-item .dot {
+  width: 6px;
+  height: 6px;
+  background: var(--gold-primary);
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.exp-marquee-item .italic { font-style: italic; color: var(--gold-primary); }
+
+@keyframes marqueeScroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ============================================
+   MENU SECTION
+   ============================================ */
+.menu-section {
+  background: var(--black-deep);
+  position: relative;
+}
+
+.menu-section-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.menu-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.menu-header .section-text {
+  margin: 0 auto;
+  max-width: 550px;
+}
+
+/* Menu filter buttons */
+.menu-filters {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 4rem;
+  flex-wrap: wrap;
+}
+
+.menu-filter-btn {
+  font-size: 0.68rem;
+  font-weight: 400;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cream-muted);
+  padding: 0.8rem 2rem;
+  border: 1px solid rgba(201, 168, 76, 0.12);
+  background: transparent;
+  transition: all 0.4s var(--ease-smooth);
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-filter-btn::before {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  background: var(--gold-primary);
+  transition: height 0.4s var(--ease-expo);
+  z-index: 0;
+}
+
+.menu-filter-btn.active,
+.menu-filter-btn:hover {
+  color: var(--black-deep);
+  border-color: var(--gold-primary);
+}
+
+.menu-filter-btn.active::before,
+.menu-filter-btn:hover::before { height: 100%; }
+
+.menu-filter-btn span { position: relative; z-index: 1; }
+
+/* Menu grid */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+  gap: 1.5rem;
+}
+
+.menu-card {
+  background: var(--black-card);
+  border: 1px solid rgba(201, 168, 76, 0.06);
+  padding: 2.5rem;
+  transition: all 0.5s var(--ease-smooth);
+  position: relative;
+  overflow: hidden;
+}
+
+.menu-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+  transform: scaleX(0);
+  transition: transform 0.5s var(--ease-expo);
+}
+
+.menu-card:hover {
+  border-color: rgba(201, 168, 76, 0.15);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+.menu-card:hover::before { transform: scaleX(1); }
+
+.menu-card-category {
+  font-size: 0.55rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold-primary);
+  font-weight: 500;
+  margin-bottom: 1rem;
+}
+
+.menu-card-title {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--cream);
+  margin-bottom: 0.8rem;
+  line-height: 1.3;
+}
+
+.menu-card-desc {
+  font-family: var(--font-elegant);
+  font-size: 0.95rem;
+  color: var(--cream-muted);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.menu-card-divider {
+  width: 30px;
+  height: 1px;
+  background: var(--gold-dim);
+  margin: 1.2rem 0;
+}
+
+.menu-card-items {
+  list-style: none;
+}
+
+.menu-card-items li {
+  font-size: 0.85rem;
+  color: var(--cream-muted);
+  padding: 0.5rem 0;
+  border-bottom: 1px solid rgba(255,255,255,0.03);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: color 0.3s;
+}
+
+.menu-card-items li:last-child { border-bottom: none; }
+.menu-card-items li:hover { color: var(--cream); }
+
+.menu-card-items li .item-note {
+  font-family: var(--font-elegant);
+  font-style: italic;
+  font-size: 0.78rem;
+  color: var(--gold-dim);
+}
+
+/* Hidden state for filter */
+.menu-card.hidden-card {
+  display: none;
+}
+
+/* Menu category heading that shows active category */
+.menu-active-category {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.menu-active-category h3 {
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 3vw, 2.5rem);
+  font-weight: 500;
+  color: var(--cream);
+  font-style: italic;
+  letter-spacing: 0.05em;
+}
+
+.menu-active-category .cat-line {
+  width: 50px;
+  height: 1px;
+  background: var(--gold-primary);
+  margin: 1rem auto 0;
+}
+
+/* ============================================
+   FEATURES / EXPERIENCE SECTION
+   ============================================ */
+.features {
+  background: var(--black-rich);
+  position: relative;
+}
+
+.features-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.features-header {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.features-header .section-text {
+  margin: 0 auto;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2rem;
+}
+
+.feature-card {
+  text-align: center;
+  padding: 1.8rem 1.4rem;
+  border: 1px solid rgba(201, 168, 76, 0.06);
+  background: rgba(26, 26, 26, 0.5);
+  transition: all 0.5s var(--ease-smooth);
+  position: relative;
+}
+
+.feature-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 2px;
+  background: var(--gold-primary);
+  transition: width 0.5s var(--ease-expo);
+}
+
+.feature-card:hover {
+  border-color: rgba(201, 168, 76, 0.15);
+  background: rgba(201, 168, 76, 0.03);
+  transform: translateY(-6px);
+}
+
+.feature-card:hover::after { width: 60%; }
+
+.feature-icon {
+  width: 40px;
+  height: 40px;
+  margin: 0 auto 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.feature-icon svg {
+  width: 100%;
+  height: 100%;
+  stroke: var(--gold-primary);
+  fill: none;
+  stroke-width: 1;
+}
+
+.feature-title {
+  font-family: var(--font-serif);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--cream);
+  margin-bottom: 0.8rem;
+}
+
+.feature-desc {
+  font-size: 0.82rem;
+  color: var(--cream-muted);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+/* ============================================
+   GALLERY SECTION
+   ============================================ */
+.gallery {
+  background: var(--black-deep);
+  position: relative;
+}
+
+.gallery-inner {
+  max-width: 1500px;
+  margin: 0 auto;
+}
+
+.gallery-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-auto-rows: 280px;
+  gap: 1rem;
+}
+
+.gallery-item {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Asymmetric grid layout for 10 items */
+.gallery-item:nth-child(1)  { grid-column: 1 / 8;  grid-row: 1; }
+.gallery-item:nth-child(2)  { grid-column: 8 / 13; grid-row: 1; }
+.gallery-item:nth-child(3)  { grid-column: 1 / 5;  grid-row: 2; }
+.gallery-item:nth-child(4)  { grid-column: 5 / 13; grid-row: 2; }
+.gallery-item:nth-child(5)  { grid-column: 1 / 7;  grid-row: 3; }
+.gallery-item:nth-child(6)  { grid-column: 7 / 13; grid-row: 3; }
+.gallery-item:nth-child(7)  { grid-column: 1 / 4;  grid-row: 4; }
+.gallery-item:nth-child(8)  { grid-column: 4 / 9;  grid-row: 4; }
+.gallery-item:nth-child(9)  { grid-column: 9 / 13; grid-row: 4; }
+.gallery-item:nth-child(10) { grid-column: 1 / 13; grid-row: 5; height: 220px; }
+
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.7) saturate(0.85);
+  transition: all 0.8s var(--ease-expo);
+}
+
+.gallery-item:hover img {
+  filter: brightness(0.85) saturate(1);
+  transform: scale(1.06);
+}
+
+/* Placeholder gallery items */
+.gallery-placeholder {
+  background: var(--black-card);
+  border: 1px solid rgba(201, 168, 76, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  gap: 0.8rem;
+  transition: all 0.5s var(--ease-smooth);
+}
+
+.gallery-placeholder:hover {
+  border-color: rgba(201, 168, 76, 0.2);
+  background: rgba(26, 26, 26, 0.8);
+}
+
+.gallery-placeholder svg {
+  width: 32px;
+  height: 32px;
+  stroke: rgba(201, 168, 76, 0.25);
+  fill: none;
+  stroke-width: 1;
+  transition: stroke 0.4s;
+}
+
+.gallery-placeholder:hover svg {
+  stroke: rgba(201, 168, 76, 0.5);
+}
+
+.gallery-placeholder span {
+  font-size: 0.6rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: rgba(201, 168, 76, 0.3);
+  font-weight: 400;
+  transition: color 0.4s;
+}
+
+.gallery-placeholder:hover span {
+  color: rgba(201, 168, 76, 0.6);
+}
+
+/* ============================================
+   DAY-TO-NIGHT JOURNEY SECTION
+   ============================================ */
+.journey {
+  background: var(--black-rich);
+  position: relative;
+}
+
+.journey-inner {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.journey-header {
+  text-align: center;
+  margin-bottom: 5rem;
+}
+
+.journey-header .section-text {
+  margin: 0 auto;
+}
+
+.journey-timeline {
+  position: relative;
+  padding-left: 3rem;
+}
+
+.journey-timeline::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 1px;
+  height: 100%;
+  background: linear-gradient(to bottom, transparent, rgba(201, 168, 76, 0.3) 10%, rgba(201, 168, 76, 0.3) 90%, transparent);
+}
+
+.journey-phase {
+  position: relative;
+  padding-bottom: 4rem;
+}
+
+.journey-phase:last-child { padding-bottom: 0; }
+
+.journey-phase::before {
+  content: '';
+  position: absolute;
+  left: -3rem;
+  top: 0.4rem;
+  width: 9px;
+  height: 9px;
+  background: var(--gold-primary);
+  border-radius: 50%;
+  transform: translateX(-50%);
+  box-shadow: 0 0 15px rgba(201, 168, 76, 0.3);
+}
+
+.journey-phase-time {
+  font-family: var(--font-sans);
+  font-size: 0.6rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold-primary);
+  font-weight: 500;
+  margin-bottom: 0.6rem;
+}
+
+.journey-phase-title {
+  font-family: var(--font-serif);
+  font-size: clamp(1.3rem, 2.5vw, 1.8rem);
+  font-weight: 600;
+  color: var(--cream);
+  margin-bottom: 0.6rem;
+  line-height: 1.3;
+}
+
+.journey-phase-title .italic {
+  font-style: italic;
+  color: var(--gold-primary);
+  font-weight: 400;
+}
+
+.journey-phase-desc {
+  font-family: var(--font-elegant);
+  font-size: 1rem;
+  color: var(--cream-muted);
+  line-height: 1.8;
+  font-weight: 300;
+  max-width: 550px;
+}
+
+.journey-phase-tags {
+  display: flex;
+  gap: 0.6rem;
+  margin-top: 1rem;
+  flex-wrap: wrap;
+}
+
+.journey-tag {
+  font-size: 0.58rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--cream-muted);
+  border: 1px solid rgba(201, 168, 76, 0.12);
+  padding: 0.4rem 1rem;
+  font-weight: 400;
+}
+
+/* ============================================
+   EVENTS / PRIVATE SECTION
+   ============================================ */
+.events {
+  background: var(--black-deep);
+  position: relative;
+}
+
+.events-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.events-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2rem;
+  margin-top: 4rem;
+}
+
+.event-card {
+  padding: 1.8rem;
+  border: 1px solid rgba(201, 168, 76, 0.08);
+  background: var(--black-card);
+  position: relative;
+  overflow: hidden;
+  transition: all 0.5s var(--ease-smooth);
+}
+
+.event-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+  transform: scaleX(0);
+  transition: transform 0.5s var(--ease-expo);
+}
+
+.event-card:hover {
+  border-color: rgba(201, 168, 76, 0.15);
+  transform: translateY(-4px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+
+.event-card:hover::before { transform: scaleX(1); }
+
+.event-card-icon {
+  width: 36px;
+  height: 36px;
+  margin-bottom: 1rem;
+}
+
+.event-card-icon svg {
+  width: 100%;
+  height: 100%;
+  stroke: var(--gold-primary);
+  fill: none;
+  stroke-width: 1;
+}
+
+.event-card-title {
+  font-family: var(--font-serif);
+  font-size: 1.4rem;
+  font-weight: 600;
+  color: var(--cream);
+  margin-bottom: 0.8rem;
+  line-height: 1.3;
+}
+
+.event-card-desc {
+  font-family: var(--font-elegant);
+  font-size: 0.95rem;
+  color: var(--cream-muted);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+@media (max-width: 768px) {
+  .events-grid { grid-template-columns: 1fr; }
+  .journey-timeline { padding-left: 2rem; }
+  .journey-phase::before { left: -2rem; }
+}
+
+/* ============================================
+   CONTACT / FOOTER SECTION
+   ============================================ */
+.contact {
+  background: var(--black-rich);
+  position: relative;
+}
+
+.contact-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+.contact-info { padding-right: 2rem; }
+
+.contact-detail {
+  margin-bottom: 2.5rem;
+}
+
+.contact-detail-label {
+  font-size: 0.6rem;
+  letter-spacing: 0.4em;
+  text-transform: uppercase;
+  color: var(--gold-primary);
+  font-weight: 500;
+  margin-bottom: 0.7rem;
+}
+
+.contact-detail-value {
+  font-family: var(--font-elegant);
+  font-size: 1.1rem;
+  color: var(--cream);
+  line-height: 1.7;
+  font-weight: 300;
+}
+
+.contact-detail-value a {
+  color: var(--cream);
+  transition: color 0.3s;
+}
+
+.contact-detail-value a:hover { color: var(--gold-primary); }
+
+.contact-hours {
+  margin-top: 2.5rem;
+}
+
+.hours-grid {
+  display: grid;
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.hours-row {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 0.8rem;
+  border-bottom: 1px solid rgba(201, 168, 76, 0.06);
+  font-size: 0.9rem;
+}
+
+.hours-row .day { color: var(--cream-muted); }
+.hours-row .time { color: var(--cream); font-family: var(--font-elegant); font-weight: 400; }
+
+.contact-social {
+  display: flex;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+.social-link {
+  width: 50px;
+  height: 50px;
+  border: 1px solid rgba(201, 168, 76, 0.2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.4s var(--ease-smooth);
+}
+
+.social-link:hover {
+  background: var(--gold-primary);
+  border-color: var(--gold-primary);
+}
+
+.social-link svg {
+  width: 18px;
+  height: 18px;
+  fill: var(--gold-primary);
+  transition: fill 0.3s;
+}
+
+.social-link:hover svg { fill: var(--black-deep); }
+
+/* Map container */
+.contact-map {
+  position: relative;
+  height: 500px;
+  overflow: hidden;
+  border: 1px solid rgba(201, 168, 76, 0.1);
+}
+
+.contact-map iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+  filter: grayscale(1) invert(1) brightness(0.6) contrast(1.2) hue-rotate(180deg);
+  transition: filter 0.5s;
+}
+
+.contact-map:hover iframe {
+  filter: grayscale(0.5) invert(1) brightness(0.65) contrast(1.1) hue-rotate(180deg);
+}
+
+
+
+/* ============================================
+   FOOTER
+   ============================================ */
+.footer {
+  background: var(--black-deep);
+  border-top: 1px solid rgba(201, 168, 76, 0.06);
+  padding: 3rem clamp(1.5rem, 5vw, 6rem);
+}
+
+.footer-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.footer-brand {
+  font-family: var(--font-serif);
+  font-size: 0.9rem;
+  letter-spacing: 0.2em;
+  color: var(--gold-dim);
+  text-transform: uppercase;
+}
+
+.footer-legal {
+  font-size: 0.65rem;
+  color: rgba(184, 176, 162, 0.4);
+  letter-spacing: 0.1em;
+}
+
+.footer-back-top {
+  font-size: 0.65rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cream-muted);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.footer-back-top:hover { color: var(--gold-primary); }
+
+.footer-back-top svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 2;
+}
+
+/* ============================================
+   ANIMATED SVG BACKGROUNDS
+   ============================================ */
+.svg-bg-section {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+  opacity: 1;
+}
+
+.svg-bg-section svg {
+  width: 100%;
+  height: 100%;
+}
+
+/* Ambient floating orbs for depth */
+.ambient-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(80px);
+}
+
+.ambient-orb-gold {
+  background: radial-gradient(circle, rgba(201, 168, 76, 0.12) 0%, transparent 70%);
+}
+
+.ambient-orb-velvet {
+  background: radial-gradient(circle, rgba(30, 27, 46, 0.25) 0%, transparent 70%);
+}
+
+.ambient-orb-warm {
+  background: radial-gradient(circle, rgba(255, 170, 50, 0.06) 0%, transparent 70%);
+}
+
+/* Section divider line */
+.section-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(201, 168, 76, 0.12) 20%, rgba(201, 168, 76, 0.2) 50%, rgba(201, 168, 76, 0.12) 80%, transparent);
+  position: relative;
+}
+
+.section-divider::after {
+  content: '';
+  position: absolute;
+  top: -3px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 7px;
+  height: 7px;
+  background: var(--gold-dim);
+  border-radius: 50%;
+}
+
+/* ============================================
+   REVEAL ANIMATIONS
+   ============================================ */
+.reveal-up {
+  opacity: 0;
+  transform: translateY(60px);
+}
+
+.reveal-fade {
+  opacity: 0;
+}
+
+.split-line {
+  overflow: hidden;
+}
+
+.split-line .line-inner {
+  transform: translateY(100%);
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 1024px) {
+  .features-grid { grid-template-columns: repeat(2, 1fr); }
+  .narrative-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .narrative-visual { height: 400px; }
+  .narrative-img-wrap { width: 100%; }
+  .contact-grid { grid-template-columns: 1fr; }
+  .contact-map { height: 350px; }
+}
+
+@media (max-width: 768px) {
+  .nav { padding: 1rem 1.5rem; }
+  .nav-links {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(11, 11, 11, 0.98);
+    backdrop-filter: blur(30px);
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 2.5rem;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.4s var(--ease-smooth), visibility 0.4s;
+  }
+  .nav-links.open { opacity: 1; visibility: visible; }
+  .nav-links a { font-size: 0.99rem; letter-spacing: 0.25em; }
+  .nav-toggle { display: flex; }
+
+  .features-grid { grid-template-columns: 1fr; }
+  .menu-grid { grid-template-columns: 1fr; }
+
+  .gallery-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 200px;
+  }
+  .gallery-item:nth-child(1)  { grid-column: 1 / 3; grid-row: auto; }
+  .gallery-item:nth-child(2)  { grid-column: 1 / 2; grid-row: auto; }
+  .gallery-item:nth-child(3)  { grid-column: 2 / 3; grid-row: auto; }
+  .gallery-item:nth-child(4)  { grid-column: 1 / 3; grid-row: auto; }
+  .gallery-item:nth-child(5)  { grid-column: 1 / 2; grid-row: auto; }
+  .gallery-item:nth-child(6)  { grid-column: 2 / 3; grid-row: auto; }
+  .gallery-item:nth-child(7)  { grid-column: 1 / 3; grid-row: auto; }
+  .gallery-item:nth-child(8)  { grid-column: 1 / 2; grid-row: auto; }
+  .gallery-item:nth-child(9)  { grid-column: 2 / 3; grid-row: auto; }
+  .gallery-item:nth-child(10) { grid-column: 1 / 3; grid-row: auto; height: auto; }
+
+  .hero-title { font-size: clamp(2.5rem, 10vw, 4rem); }
+  .loader-logo { font-size: clamp(1.1rem, 5vw, 1.6rem); }
+  .narrative-visual { height: 360px; }
+
+  .footer { padding-bottom: 2rem; }
+
+  .contact-map { height: 280px; }
+}
+
+@media (max-width: 480px) {
+  .hero-cta-group { flex-direction: column; align-items: center; }
+  .hero-cta-group .btn-primary,
+  .hero-cta-group .btn-ghost { width: auto; justify-content: center; font-size: 0.6rem; padding: 0.7rem 1.6rem; }
+  .menu-filters { gap: 0.3rem; }
+  .menu-filter-btn { padding: 0.6rem 1.2rem; font-size: 0.6rem; }
+}
+</style>
+
+</head>
+<body>
+
+<!-- ==================== LOADER ==================== -->
+<div class="loader-screen" id="loader">
+  <div class="loader-logo" id="loaderLogo">The Passenger</div>
+  <div class="loader-line" id="loaderLine"></div>
+  <div class="loader-sub" id="loaderSub">Kastoria &middot; Greece</div>
+</div>
+
+<!-- ==================== NAVIGATION ==================== -->
+<nav class="nav" id="mainNav">
+  <a href="#" class="nav-brand magnetic-el">
+    The Passenger
+    <span>Cafe &middot; Bar &middot; Bistro</span>
+  </a>
+
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#narrative" class="magnetic-el">Story</a></li>
+    <li><a href="#menu" class="magnetic-el">Menu</a></li>
+    <li><a href="#gallery" class="magnetic-el">Gallery</a></li>
+    <li><a href="#events" class="magnetic-el">Events</a></li>
+    <li><a href="#contact" class="magnetic-el">Visit</a></li>
+  </ul>
+
+  <div class="nav-toggle" id="navToggle">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</nav>
+
+<!-- ==================== HERO SECTION ==================== -->
+<section class="hero" id="hero">
+  <div class="hero-bg-layer">
+    <div class="hero-img-container">
+      <img src="images/i3.jpg" alt="The Passenger interior - premium lounge atmosphere">
+    </div>
+  </div>
+  <div class="hero-grain"></div>
+  <div class="hero-vignette"></div>
+
+  <div class="hero-content">
+    <div class="hero-overline" id="heroOverline">
+      Kastoria &middot; Lake Orestiada
+    </div>
+
+    <h1 class="hero-title" id="heroTitle">
+      <span class="word"><span>The</span></span>
+      <span class="word"><span class="accent">Passenger</span></span>
+    </h1>
+
+    <p class="hero-subtitle" id="heroSubtitle">
+      Premium coffee by morning. Craft cocktails by night.
+      Kastoria's all-day lakeside destination.
+    </p>
+
+    <div class="hero-cta-group" id="heroCta">
+      <a href="#menu" class="btn-primary magnetic-el">
+        <span>Explore the Menu</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17L17 7M17 7H7M17 7V17"/></svg>
+      </a>
+      <a href="#narrative" class="btn-ghost magnetic-el">
+        <span>Our Story</span>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-scroll-indicator" id="heroScroll">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+
+  <!-- Hero bottom wave -->
+  <div class="hero-svg-wave">
+    <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+      <defs>
+        <linearGradient id="waveGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stop-color="var(--black-deep)" stop-opacity="0"/>
+          <stop offset="100%" stop-color="var(--black-deep)" stop-opacity="1"/>
+        </linearGradient>
+      </defs>
+      <path d="M0,40 C360,100 720,0 1080,60 C1260,90 1380,50 1440,40 L1440,120 L0,120 Z" fill="#0B0B0B"/>
+      <path class="wave-path-animate" d="M0,60 C240,20 480,90 720,50 C960,10 1200,80 1440,45" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ==================== NARRATIVE SECTION ==================== -->
+<section class="narrative section section-pad" id="narrative">
+  <!-- Ambient light orbs -->
+  <div class="ambient-orb ambient-orb-gold" style="width:500px;height:500px;top:-10%;right:-5%;"></div>
+  <div class="ambient-orb ambient-orb-velvet" style="width:400px;height:400px;bottom:10%;left:-8%;"></div>
+
+
+  <!-- Ambient SVG background -->
+  <div class="svg-bg-section">
+    <svg viewBox="0 0 800 800" preserveAspectRatio="none">
+      <defs>
+        <radialGradient id="narGlow" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#C9A84C" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#C9A84C" stop-opacity="0"/>
+        </radialGradient>
+        <radialGradient id="narGlow2" cx="20%" cy="80%" r="35%">
+          <stop offset="0%" stop-color="#C9A84C" stop-opacity="0.15"/>
+          <stop offset="100%" stop-color="transparent"/>
+        </radialGradient>
+      </defs>
+      <!-- Acoustic wave lines -->
+      <g class="acoustic-waves" stroke="#ffffff" stroke-width="0.3" fill="none" opacity="0.055">
+        <path d="M0,200 Q200,150 400,200 Q600,250 800,200" class="wave-line-1"/>
+        <path d="M0,250 Q200,200 400,250 Q600,300 800,250" class="wave-line-2"/>
+        <path d="M0,300 Q200,250 400,300 Q600,350 800,300" class="wave-line-3"/>
+        <path d="M0,350 Q200,300 400,350 Q600,400 800,350" class="wave-line-4"/>
+        <path d="M0,400 Q200,350 400,400 Q600,450 800,400" class="wave-line-5"/>
+        <path d="M0,450 Q200,400 400,450 Q600,500 800,450" class="wave-line-6"/>
+        <path d="M0,500 Q200,450 400,500 Q600,550 800,500" class="wave-line-7"/>
+        <path d="M0,550 Q200,500 400,550 Q600,600 800,550" class="wave-line-8"/>
+      </g>
+      <circle cx="400" cy="400" r="250" fill="url(#narGlow)" opacity="0.2"/>
+      <circle cx="150" cy="650" r="180" fill="url(#narGlow2)" opacity="0.3"/>
+    </svg>
+  </div>
+
+  <div class="narrative-inner" style="position:relative; z-index:1;">
+    <div class="narrative-visual reveal-up">
+      <div class="narrative-img-wrap">
+        <img src="images/i1.png" alt="The Passenger bar - premium cocktail ingredients and craft details">
+        <div class="narrative-img-frame"></div>
+      </div>
+      <div class="narrative-float-badge">
+        <div class="nbf-num">Est.</div>
+        <div class="nbf-text">Kastoria, Greece</div>
+      </div>
+    </div>
+
+    <div class="narrative-copy">
+      <div class="section-label reveal-up">Our Story</div>
+      <h2 class="section-heading reveal-up">
+        The Soul of<br><span class="italic">The Passenger</span>
+      </h2>
+      <div class="divider-gold reveal-up"></div>
+      <p class="section-text reveal-up">
+        Every morning starts with Hausbrandt Gourmet Columbus &mdash; premium Italian-Arabic coffee, pulled fresh while Lake Orestiada catches the first light. By noon, the terrace is full and the energy is easy.
+      </p>
+      <p class="section-text reveal-up" style="margin-top:1.5rem;">
+        After sunset, everything changes. The lights go low, the music goes up, and our bar team takes over with signature cocktails, top-shelf spirits, and an atmosphere that's made The Passenger the place to be in Kastoria after dark.
+      </p>
+      <blockquote class="narrative-quote reveal-up">
+        "From the first coffee to the last cocktail &mdash; every hour here is worth staying for."
+      </blockquote>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ==================== EXPERIENCE MARQUEE ==================== -->
+<div class="experience-strip">
+  <div class="exp-marquee" id="expMarquee">
+    <div class="exp-marquee-item"><span class="dot"></span> Hausbrandt <span class="italic">Gourmet</span> Columbus</div>
+    <div class="exp-marquee-item"><span class="dot"></span> Signature <span class="italic">Cocktail</span> Craft</div>
+    <div class="exp-marquee-item"><span class="dot"></span> Lake <span class="italic">Orestiada</span> Views</div>
+    <div class="exp-marquee-item"><span class="dot"></span> Artisanal <span class="italic">Bistro</span> Plates</div>
+    <div class="exp-marquee-item"><span class="dot"></span> Late Night <span class="italic">Lounge</span> Energy</div>
+    <div class="exp-marquee-item"><span class="dot"></span> Northern <span class="italic">Greece</span> Wines</div>
+    <!-- Duplicate for seamless loop -->
+    <div class="exp-marquee-item"><span class="dot"></span> Hausbrandt <span class="italic">Gourmet</span> Columbus</div>
+    <div class="exp-marquee-item"><span class="dot"></span> Signature <span class="italic">Cocktail</span> Craft</div>
+    <div class="exp-marquee-item"><span class="dot"></span> Lake <span class="italic">Orestiada</span> Views</div>
+    <div class="exp-marquee-item"><span class="dot"></span> Artisanal <span class="italic">Bistro</span> Plates</div>
+    <div class="exp-marquee-item"><span class="dot"></span> Late Night <span class="italic">Lounge</span> Energy</div>
+    <div class="exp-marquee-item"><span class="dot"></span> Northern <span class="italic">Greece</span> Wines</div>
+  </div>
+</div>
+
+<!-- ==================== MENU SECTION ==================== -->
+<section class="menu-section section section-pad" id="menu">
+  <!-- Ambient light orbs -->
+  <div class="ambient-orb ambient-orb-gold" style="width:600px;height:600px;top:5%;left:-10%;"></div>
+  <div class="ambient-orb ambient-orb-velvet" style="width:500px;height:500px;bottom:-5%;right:-5%;"></div>
+
+
+  <!-- SVG background texture -->
+  <div class="svg-bg-section">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="none">
+      <path d="M0,200 Q360,100 720,200 Q1080,300 1440,200" fill="none" stroke="#ffffff" stroke-width="0.3" opacity="0.04"/>
+      <path d="M0,700 Q360,600 720,700 Q1080,800 1440,700" fill="none" stroke="#ffffff" stroke-width="0.25" opacity="0.035"/>
+      <line x1="200" y1="0" x2="200" y2="900" stroke="#ffffff" stroke-width="0.2" opacity="0.025"/>
+      <line x1="900" y1="0" x2="900" y2="900" stroke="#ffffff" stroke-width="0.2" opacity="0.025"/>
+    </svg>
+  </div>
+
+  <div class="menu-section-inner" style="position:relative; z-index:1;">
+    <div class="menu-header">
+      <div class="section-label reveal-up" style="justify-content:center;">The Menu</div>
+      <h2 class="section-heading reveal-up">
+        Curated for Every<br><span class="italic">Hour</span>
+      </h2>
+      <p class="section-text reveal-up" style="text-align:center;">
+        Morning Hausbrandt rituals, midnight cocktail craft, and everything worth savoring in between.
+      </p>
+    </div>
+
+    <!-- Filter Buttons -->
+    <div class="menu-filters reveal-up">
+      <button class="menu-filter-btn active" data-filter="coffee"><span>Coffee</span></button>
+      <button class="menu-filter-btn" data-filter="cocktails"><span>Cocktails</span></button>
+      <button class="menu-filter-btn" data-filter="wine"><span>Wine & Beer</span></button>
+      <button class="menu-filter-btn" data-filter="bites"><span>Bistro Bites</span></button>
+    </div>
+
+    <!-- Active category heading -->
+    <div class="menu-active-category" id="menuCatHeading">
+      <h3 id="menuCatTitle">Coffee & Beverages</h3>
+      <div class="cat-line"></div>
+    </div>
+
+    <!-- Menu Cards -->
+    <div class="menu-grid" id="menuGrid">
+
+      <!-- COFFEE CARDS -->
+      <div class="menu-card reveal-up" data-category="coffee">
+        <div class="menu-card-category">Signature Grind</div>
+        <div class="menu-card-title">Hausbrandt Gourmet Columbus</div>
+        <div class="menu-card-desc">Our house coffee. A premium Italian-Arabic blend &mdash; smooth, rich, and full of aroma. The reason our regulars keep coming back.</div>
+        <div class="menu-card-divider"></div>
+        <ul class="menu-card-items">
+          <li>Freddo Espresso <span class="item-note">Intense</span></li>
+          <li>Freddo Cappuccino <span class="item-note">Regular / Latte / Intense Cream</span></li>
+          <li>Frapp&eacute; <span class="item-note">Classic Greek</span></li>
+        </ul>
+      </div>
+
+      <div class="menu-card reveal-up" data-category="coffee">
+        <div class="menu-card-category">Hot Coffees</div>
+        <div class="menu-card-title">Hot Classics</div>
+        <div class="menu-card-desc">From a traditional Greek coffee to a perfectly pulled espresso. All made with Hausbrandt beans, served exactly how you like it.</div>
+        <div class="menu-card-divider"></div>
+        <ul class="menu-card-items">
+          <li>Greek Traditional <span class="item-note">Single / Double</span></li>
+          <li>Espresso <span class="item-note">Single / Double / Macchiato / Americano</span></li>
+          <li>Cappuccino <span class="item-note">Single / Double</span></li>
+          <li>Flat White <span class="item-note">Velvety</span></li>
+          <li>Filter Coffee <span class="item-note">V60 / Pour-over</span></li>
+        </ul>
+      </div>
+
+      <div class="menu-card reveal-up" data-category="coffee">
+        <div class="menu-card-category">Beyond Coffee</div>
+        <div class="menu-card-title">Non-Coffee &amp; Fresh Drinks</div>
+        <div class="menu-card-desc">Not in the mood for coffee? Hot chocolate, loose leaf teas, and freshly squeezed juices &mdash; something for everyone.</div>
+        <div class="menu-card-divider"></div>
+        <ul class="menu-card-items">
+          <li>Hot Chocolate <span class="item-note">Dark / White / Salted Caramel</span></li>
+          <li>Cold Chocolate <span class="item-note">Premium</span></li>
+          <li>Loose Leaf Tea <span class="item-note">English Breakfast / Green / Chamomile / Red Fruits</span></li>
+          <li>Fresh Juice <span class="item-note">Orange / Mixed Fruits</span></li>
+        </ul>
+      </div>
+
+      <!-- COCKTAIL CARDS -->
+      <div class="menu-card reveal-up hidden-card" data-category="cocktails">
+        <div class="menu-card-category">Signature Creations</div>
+        <div class="menu-card-title">The Passenger Special</div>
+        <div class="menu-card-desc">Our signature cocktails, created in-house. Dark rum, fresh lime, passionfruit &mdash; flavors you won't find anywhere else.</div>
+        <div class="menu-card-divider"></div>
+        <ul class="menu-card-items">
+          <li>Lakeside Sunset <span class="item-note">Gin, Elderflower, Cucumber, Grapefruit</span></li>
+          <li>Spiced Traveler <span class="item-note">Bourbon, Ginger Beer, Honey, Mint</span></li>
+        </ul>
+      </div>
+
+      <div class="menu-card reveal-up hidden-card" data-category="cocktails">
+        <div class="menu-card-category">Classic Cocktails</div>
+        <div class="menu-card-title">The Classics, Done Right</div>
+        <div class="menu-card-desc">Every Negroni balanced, every Spritz golden, every Mojito fresh. The drinks you love, made the way they should be.</div>
+        <div class="menu-card-divider"></div>
+        <ul class="menu-card-items">
+          <li>Negroni <span class="item-note">Balanced</span></li>
+          <li>Old Fashioned <span class="item-note">Smoky</span></li>
+          <li>Aperol Spritz <span class="item-note">Golden Hour</span></li>
+          <li>Classic Mojito <span class="item-note">Crushed Mint</span></li>
+          <li>Strawberry Mojito <span class="item-note">Seasonal</span></li>
+          <li>Dry Martini <span class="item-note">Stirred</span></li>
+        </ul>
+      </div>
+
+      <div class="menu-card reveal-up hidden-card" data-category="cocktails">
+        <div class="menu-card-category">The Spirits Rack</div>
+        <div class="menu-card-title">Top-Shelf Spirits</div>
+        <div class="menu-card-desc">Premium gins, vodkas, whiskies, and tequilas. Served neat, on the rocks, or mixed into your cocktail of choice.</div>
+        <div class="menu-card-divider"></div>
+        <ul class="menu-card-items">
+          <li>Premium Gins <span class="item-note">Curated</span></li>
+          <li>Select Vodkas <span class="item-note">International</span></li>
+          <li>Aged Whiskies <span class="item-note">Single Malt & Blends</span></li>
+          <li>Fine Tequilas <span class="item-note">Reposado & A&ntilde;ejo</span></li>
+        </ul>
+      </div>
+
+      <!-- WINE & BEER CARDS -->
+      <div class="menu-card reveal-up hidden-card" data-category="wine">
+        <div class="menu-card-category">Wine Cellar</div>
+        <div class="menu-card-title">Northern Greece Wines</div>
+        <div class="menu-card-desc">A curated selection of Greek wines. Crisp Assyrtiko whites, aromatic Malagousia, and bold Xinomavro reds &mdash; all from the region we call home.</div>
+        <div class="menu-card-divider"></div>
+        <ul class="menu-card-items">
+          <li>Assyrtiko <span class="item-note">Crisp White</span></li>
+          <li>Malagousia <span class="item-note">Aromatic White</span></li>
+          <li>Xinomavro Ros&eacute; <span class="item-note">Rich Blend</span></li>
+          <li>Regional Cabernet Sauvignon <span class="item-note">Bold Red</span></li>
+          <li>Xinomavro Red <span class="item-note">Full-Bodied</span></li>
+        </ul>
+      </div>
+
+      <div class="menu-card reveal-up hidden-card" data-category="wine">
+        <div class="menu-card-category">Beer Taps & Bottles</div>
+        <div class="menu-card-title">Beer on Tap &amp; Bottles</div>
+        <div class="menu-card-desc">Greek craft beers on tap, local microbrewery IPAs, and classic international bottles. Cold and ready.</div>
+        <div class="menu-card-divider"></div>
+        <ul class="menu-card-items">
+          <li>Greek Craft Lager <span class="item-note">On Tap</span></li>
+          <li>Craft Pilsner <span class="item-note">On Tap</span></li>
+          <li>Alpha / Fix / Mythos <span class="item-note">Bottled</span></li>
+          <li>Corona / Heineken <span class="item-note">International</span></li>
+          <li>Greek Microbrewery IPA <span class="item-note">Artisanal</span></li>
+        </ul>
+      </div>
+
+      <!-- BISTRO BITES CARDS -->
+      <div class="menu-card reveal-up hidden-card" data-category="bites">
+        <div class="menu-card-category">Egg & Breakfast</div>
+        <div class="menu-card-title">The Morning Plate</div>
+        <div class="menu-card-desc">Fresh, generous, and made to order. Start your day the right way.</div>
+        <div class="menu-card-divider"></div>
+        <ul class="menu-card-items">
+          <li>Special Omelette <span class="item-note">Bacon, Peppers, Graviera, Sourdough</span></li>
+          <li>Scrambled Sourdough <span class="item-note">Bacon, Cherry Tomato, Spinach</span></li>
+          <li>Avocado Toast <span class="item-note">Poached Eggs, Citrus Drizzle</span></li>
+        </ul>
+      </div>
+
+      <div class="menu-card reveal-up hidden-card" data-category="bites">
+        <div class="menu-card-category">Premium Sandwiches</div>
+        <div class="menu-card-title">Sandwiches &amp; Toasts</div>
+        <div class="menu-card-desc">Focaccia, club sandwiches, and pressed toast &mdash; made with quality ingredients and served with care.</div>
+        <div class="menu-card-divider"></div>
+        <ul class="menu-card-items">
+          <li>Focaccia Prosciutto <span class="item-note">Avocado, Rocket, Fig Jam</span></li>
+          <li>Club Sandwich Classic <span class="item-note">Chicken, Bacon, Edam, Fries</span></li>
+        </ul>
+      </div>
+
+      <div class="menu-card reveal-up hidden-card" data-category="bites">
+        <div class="menu-card-category">Sweet Plates</div>
+        <div class="menu-card-title">Waffles &amp; Pancakes</div>
+        <div class="menu-card-desc">Warm waffles with praline and gelato, fluffy pancakes with fresh fruits. Perfect alongside your morning coffee.</div>
+        <div class="menu-card-divider"></div>
+        <ul class="menu-card-items">
+          <li>Sweet Waffle Delight <span class="item-note">Praline, Hazelnuts, Vanilla Gelato</span></li>
+          <li>Pancake Stacks <span class="item-note">Seasonal Fruits, Maple / Chocolate</span></li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FEATURES SECTION ==================== -->
+<section class="features section section-pad" id="features">
+  <!-- Ambient light orbs -->
+  <div class="ambient-orb ambient-orb-gold" style="width:450px;height:450px;top:20%;right:10%;"></div>
+  <div class="ambient-orb ambient-orb-velvet" style="width:550px;height:550px;bottom:-10%;left:5%;"></div>
+
+
+  <!-- SVG background -->
+  <div class="svg-bg-section">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="none">
+      <path d="M0,450 C200,350 400,550 600,400 C800,250 1000,500 1200,380 C1350,300 1400,450 1440,400" fill="none" stroke="#ffffff" stroke-width="0.4" opacity="0.04"/>
+      <path d="M0,500 C200,400 400,600 600,450 C800,300 1000,550 1200,430 C1350,350 1400,500 1440,450" fill="none" stroke="#ffffff" stroke-width="0.3" opacity="0.035"/>
+    </svg>
+  </div>
+
+  <div class="features-inner" style="position:relative; z-index:1;">
+    <div class="features-header">
+      <div class="section-label reveal-up" style="justify-content:center;">The Experience</div>
+      <h2 class="section-heading reveal-up">
+        Beyond the <span class="italic">Ordinary</span>
+      </h2>
+      <p class="section-text reveal-up" style="text-align:center;">
+        Every detail designed to turn a visit into something you remember.
+      </p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card reveal-up magnetic-el">
+        <div class="feature-icon">
+          <svg viewBox="0 0 60 60">
+            <path d="M30 5 C30 5 45 15 45 30 C45 38.28 38.28 45 30 45 C21.72 45 15 38.28 15 30 C15 15 30 5 30 5Z"/>
+            <path d="M30 45 L30 55"/>
+            <path d="M22 55 L38 55"/>
+            <circle cx="30" cy="25" r="3"/>
+          </svg>
+        </div>
+        <div class="feature-title">Lakeside Panorama</div>
+        <div class="feature-desc">Floor-to-ceiling views of Lake Orestiada. Watch the water shift from sapphire at noon to obsidian at midnight from your table.</div>
+      </div>
+
+      <div class="feature-card reveal-up magnetic-el">
+        <div class="feature-icon">
+          <svg viewBox="0 0 60 60">
+            <path d="M15 45 L15 20 C15 14 20 10 25 10 L30 10"/>
+            <circle cx="30" cy="10" r="5"/>
+            <path d="M30 15 L30 25"/>
+            <path d="M20 25 L40 25 L42 45 L18 45 Z"/>
+            <path d="M22 30 C25 35 35 35 38 30"/>
+            <line x1="18" y1="45" x2="42" y2="45"/>
+          </svg>
+        </div>
+        <div class="feature-title">Craft Mixology</div>
+        <div class="feature-desc">Our bartenders craft cocktails with house-infused spirits, premium ingredients, and serious attention to detail. Every drink is made to impress.</div>
+      </div>
+
+      <div class="feature-card reveal-up magnetic-el">
+        <div class="feature-icon">
+          <svg viewBox="0 0 60 60">
+            <circle cx="30" cy="25" r="12"/>
+            <path d="M18 25 C20 20 25 18 30 18"/>
+            <path d="M22 45 L22 37 C22 33 26 30 30 30 C34 30 38 33 38 37 L38 45"/>
+            <path d="M15 45 L45 45"/>
+            <line x1="30" y1="30" x2="30" y2="45"/>
+            <path d="M25 38 L35 38"/>
+          </svg>
+        </div>
+        <div class="feature-title">Curated Soundscape</div>
+        <div class="feature-desc">From ambient lakeside acoustics in the morning to deep, pulsing lounge sets after dark &mdash; our sound design is intentional.</div>
+      </div>
+
+      <div class="feature-card reveal-up magnetic-el">
+        <div class="feature-icon">
+          <svg viewBox="0 0 60 60">
+            <circle cx="30" cy="30" r="20"/>
+            <path d="M30 10 L30 15"/>
+            <path d="M30 45 L30 50"/>
+            <path d="M10 30 L15 30"/>
+            <path d="M45 30 L50 30"/>
+            <path d="M20 30 C20 24.48 24.48 20 30 20 C35.52 20 40 24.48 40 30 C40 35.52 35.52 40 30 40"/>
+            <path d="M26 30 L34 30"/>
+            <path d="M30 26 L30 34"/>
+          </svg>
+        </div>
+        <div class="feature-title">Full Accessibility</div>
+        <div class="feature-desc">Wheelchair-accessible entry, seating, and restrooms. The Passenger is designed so every guest feels genuinely welcome, without exception.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== GALLERY SECTION ==================== -->
+<section class="gallery section section-pad" id="gallery">
+  <!-- Ambient light orbs -->
+  <div class="ambient-orb ambient-orb-gold" style="width:400px;height:400px;bottom:10%;left:15%;"></div>
+  <div class="ambient-orb ambient-orb-velvet" style="width:350px;height:350px;top:5%;right:10%;"></div>
+
+  <!-- SVG background -->
+  <div class="svg-bg-section">
+    <svg viewBox="0 0 1440 800" preserveAspectRatio="none">
+      <line x1="0" y1="200" x2="1440" y2="200" stroke="#ffffff" stroke-width="0.2" opacity="0.04"/>
+      <line x1="0" y1="600" x2="1440" y2="600" stroke="#ffffff" stroke-width="0.2" opacity="0.035"/>
+    </svg>
+  </div>
+
+  <div class="gallery-inner">
+    <div class="gallery-header">
+      <div class="section-label reveal-up" style="justify-content:center;">Gallery</div>
+      <h2 class="section-heading reveal-up">
+        Moments <span class="italic">Captured</span>
+      </h2>
+    </div>
+
+    <div class="gallery-grid">
+      <div class="gallery-item gallery-placeholder reveal-up">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span>Photo</span>
+      </div>
+      <div class="gallery-item gallery-placeholder reveal-up">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span>Photo</span>
+      </div>
+      <div class="gallery-item gallery-placeholder reveal-up">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span>Photo</span>
+      </div>
+      <div class="gallery-item gallery-placeholder reveal-up">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span>Photo</span>
+      </div>
+      <div class="gallery-item gallery-placeholder reveal-up">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span>Photo</span>
+      </div>
+      <div class="gallery-item gallery-placeholder reveal-up">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span>Photo</span>
+      </div>
+      <div class="gallery-item gallery-placeholder reveal-up">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span>Photo</span>
+      </div>
+      <div class="gallery-item gallery-placeholder reveal-up">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span>Photo</span>
+      </div>
+      <div class="gallery-item gallery-placeholder reveal-up">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span>Photo</span>
+      </div>
+      <div class="gallery-item gallery-placeholder reveal-up">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+        <span>Photo</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== DAY TO NIGHT JOURNEY ==================== -->
+<section class="journey section section-pad" id="journey">
+  <!-- Ambient light orbs -->
+  <div class="ambient-orb ambient-orb-gold" style="width:450px;height:450px;top:10%;right:-5%;"></div>
+  <div class="ambient-orb ambient-orb-velvet" style="width:400px;height:400px;bottom:5%;left:10%;"></div>
+
+  <!-- SVG background -->
+  <div class="svg-bg-section">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="none">
+      <line x1="150" y1="0" x2="150" y2="900" stroke="#ffffff" stroke-width="0.15" opacity="0.05"/>
+      <line x1="300" y1="0" x2="300" y2="900" stroke="#ffffff" stroke-width="0.1" opacity="0.03"/>
+    </svg>
+  </div>
+
+  <div class="journey-inner" style="position:relative; z-index:1;">
+    <div class="journey-header">
+      <div class="section-label reveal-up" style="justify-content:center;">The Ritual</div>
+      <h2 class="section-heading reveal-up">
+        From Sunrise to <span class="italic">Last Call</span>
+      </h2>
+      <p class="section-text reveal-up" style="text-align:center;">
+        One space, four distinct moods. The Passenger transforms with the hours.
+      </p>
+    </div>
+
+    <div class="journey-timeline">
+      <div class="journey-phase reveal-up">
+        <div class="journey-phase-time">08:00 &mdash; 12:00</div>
+        <div class="journey-phase-title">The Morning <span class="italic">Ritual</span></div>
+        <div class="journey-phase-desc">
+          Hausbrandt coffee fills the air. Regulars settle in with a freddo espresso and fresh breakfast. Sunlight, good company, and the perfect start to your day.
+        </div>
+        <div class="journey-phase-tags">
+          <span class="journey-tag">Hausbrandt Coffee</span>
+          <span class="journey-tag">Breakfast Menu</span>
+          <span class="journey-tag">Lakeside Calm</span>
+        </div>
+      </div>
+
+      <div class="journey-phase reveal-up">
+        <div class="journey-phase-time">12:00 &mdash; 18:00</div>
+        <div class="journey-phase-title">The Afternoon <span class="italic">Drift</span></div>
+        <div class="journey-phase-desc">
+          Cold brews replace hot ones. Friends gather over club sandwiches and sweet waffles. The terrace fills with conversation and the shimmer of the lake below.
+        </div>
+        <div class="journey-phase-tags">
+          <span class="journey-tag">Cold Brews</span>
+          <span class="journey-tag">Bistro Bites</span>
+          <span class="journey-tag">Terrace Dining</span>
+        </div>
+      </div>
+
+      <div class="journey-phase reveal-up">
+        <div class="journey-phase-time">18:00 &mdash; 22:00</div>
+        <div class="journey-phase-title">The Golden <span class="italic">Transition</span></div>
+        <div class="journey-phase-desc">
+          The sun drops behind the mountains and the mood shifts. Warm lighting takes over, wines and aperol spritzes come out, and The Passenger starts becoming something different.
+        </div>
+        <div class="journey-phase-tags">
+          <span class="journey-tag">Wine Hour</span>
+          <span class="journey-tag">Aperitivo</span>
+          <span class="journey-tag">Curated Music</span>
+        </div>
+      </div>
+
+      <div class="journey-phase reveal-up">
+        <div class="journey-phase-time">22:00 &mdash; Late</div>
+        <div class="journey-phase-title">The <span class="italic">Electric</span> Night</div>
+        <div class="journey-phase-desc">
+          This is what The Passenger is known for. The bar lights up with signature cocktails, premium spirits, great music, and the best crowd in town. Kastoria's go-to spot after dark.
+        </div>
+        <div class="journey-phase-tags">
+          <span class="journey-tag">Signature Cocktails</span>
+          <span class="journey-tag">Premium Spirits</span>
+          <span class="journey-tag">Late Night Energy</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ==================== EVENTS & PRIVATE SECTION ==================== -->
+<section class="events section section-pad" id="events">
+  <!-- Ambient light orbs -->
+  <div class="ambient-orb ambient-orb-gold" style="width:500px;height:500px;bottom:-10%;right:15%;"></div>
+  <div class="ambient-orb ambient-orb-velvet" style="width:350px;height:350px;top:5%;left:-5%;"></div>
+
+  <!-- SVG background -->
+  <div class="svg-bg-section">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="none">
+      <line x1="0" y1="300" x2="1440" y2="300" stroke="#ffffff" stroke-width="0.1" opacity="0.03"/>
+      <line x1="0" y1="600" x2="1440" y2="600" stroke="#ffffff" stroke-width="0.1" opacity="0.03"/>
+    </svg>
+  </div>
+
+  <div class="events-inner" style="position:relative; z-index:1;">
+    <div style="text-align:center;">
+      <div class="section-label reveal-up" style="justify-content:center;">Experiences</div>
+      <h2 class="section-heading reveal-up">
+        Private Events &<br><span class="italic">Special Occasions</span>
+      </h2>
+      <p class="section-text reveal-up" style="text-align:center; margin:0 auto;">
+        The Passenger is more than a venue &mdash; it's a stage for your most important moments.
+      </p>
+    </div>
+
+    <div class="events-grid">
+      <div class="event-card reveal-up">
+        <div class="event-card-icon">
+          <svg viewBox="0 0 50 50">
+            <circle cx="25" cy="18" r="10"/>
+            <path d="M8 42 C8 32 17 27 25 27 C33 27 42 32 42 42"/>
+            <circle cx="38" cy="14" r="6"/>
+            <path d="M42 42 C42 35 38 31 35 29"/>
+          </svg>
+        </div>
+        <div class="event-card-title">Private Gatherings</div>
+        <div class="event-card-desc">
+          Reserve a section or the entire space for birthdays, name days, and celebrations. Custom cocktail menus, dedicated service, and a sound system that makes every party legendary.
+        </div>
+      </div>
+
+      <div class="event-card reveal-up">
+        <div class="event-card-icon">
+          <svg viewBox="0 0 50 50">
+            <rect x="8" y="12" width="34" height="28" rx="2"/>
+            <path d="M8 20 L42 20"/>
+            <path d="M18 12 L18 8"/>
+            <path d="M32 12 L32 8"/>
+            <circle cx="20" cy="28" r="2"/>
+            <circle cx="30" cy="28" r="2"/>
+            <circle cx="25" cy="34" r="2"/>
+          </svg>
+        </div>
+        <div class="event-card-title">Corporate &amp; Networking</div>
+        <div class="event-card-desc">
+          An elevated setting for business meetups and after-work events. Lake views, premium service, and an atmosphere that turns colleagues into collaborators.
+        </div>
+      </div>
+
+      <div class="event-card reveal-up">
+        <div class="event-card-icon">
+          <svg viewBox="0 0 50 50">
+            <path d="M25 5 L30 18 L44 18 L33 27 L37 42 L25 33 L13 42 L17 27 L6 18 L20 18Z"/>
+          </svg>
+        </div>
+        <div class="event-card-title">Seasonal Nights</div>
+        <div class="event-card-desc">
+          Themed cocktail evenings, live acoustic sets, and curated tasting nights. Follow our social channels for the latest events calendar.
+        </div>
+      </div>
+
+      <div class="event-card reveal-up">
+        <div class="event-card-icon">
+          <svg viewBox="0 0 50 50">
+            <path d="M12 40 L12 15 C12 10 17 6 25 6 C33 6 38 10 38 15 L38 40"/>
+            <path d="M8 40 L42 40"/>
+            <path d="M20 25 L30 25"/>
+            <path d="M25 20 L25 30"/>
+            <circle cx="25" cy="25" r="8" stroke-dasharray="4 3"/>
+          </svg>
+        </div>
+        <div class="event-card-title">All-Day Venue Hire</div>
+        <div class="event-card-desc">
+          From morning brunch events to late-night celebrations. The Passenger adapts to your vision with flexible layouts, full bar access, and a team that makes it seamless.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="section-divider"></div>
+
+<!-- ==================== CONTACT SECTION ==================== -->
+<section class="contact section section-pad" id="contact">
+  <!-- Ambient light orbs -->
+  <div class="ambient-orb ambient-orb-gold" style="width:500px;height:500px;bottom:-10%;left:20%;"></div>
+  <div class="ambient-orb ambient-orb-velvet" style="width:400px;height:400px;top:10%;right:-5%;"></div>
+
+  <!-- SVG ambient -->
+  <div class="svg-bg-section">
+    <svg viewBox="0 0 1440 900" preserveAspectRatio="none">
+      <circle cx="720" cy="900" r="300" stroke="#ffffff" stroke-width="0.3" fill="none" opacity="0.035"/>
+      <circle cx="720" cy="900" r="500" stroke="#ffffff" stroke-width="0.2" fill="none" opacity="0.025"/>
+    </svg>
+  </div>
+
+  <div class="contact-inner" style="position:relative; z-index:1;">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="section-label reveal-up">Find Us</div>
+        <h2 class="section-heading reveal-up">
+          Your Table<br><span class="italic">Awaits</span>
+        </h2>
+
+        <div class="contact-detail reveal-up">
+          <div class="contact-detail-label">Address</div>
+          <div class="contact-detail-value">
+            Megalou Alexandrou 33<br>
+            Kastoria, 521 00<br>
+            Greece
+          </div>
+        </div>
+
+        <div class="contact-detail reveal-up">
+          <div class="contact-detail-label">Telephone</div>
+          <div class="contact-detail-value">
+            <a href="tel:+302467022222">+30 2467 022222</a>
+          </div>
+        </div>
+
+        <div class="contact-hours reveal-up">
+          <div class="contact-detail-label">Operating Hours</div>
+          <div class="hours-grid">
+            <div class="hours-row">
+              <span class="day">Monday &ndash; Thursday</span>
+              <span class="time">08:00 &ndash; 02:00</span>
+            </div>
+            <div class="hours-row">
+              <span class="day">Friday</span>
+              <span class="time">08:00 &ndash; 04:00</span>
+            </div>
+            <div class="hours-row">
+              <span class="day">Saturday &amp; Sunday</span>
+              <span class="time">09:00 &ndash; 04:00</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="contact-social reveal-up">
+          <a href="https://m.facebook.com/The-Passenger-Kastoria-515715945276444/" target="_blank" rel="noopener noreferrer" class="social-link magnetic-el" aria-label="Facebook">
+            <svg viewBox="0 0 24 24"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+          <a href="tel:+302467022222" class="social-link magnetic-el" aria-label="Call us">
+            <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="contact-map reveal-up">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3032.964698566915!2d21.26051471187732!3d40.52027134921127!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1359fd3c934147c7%3A0x4d473a1a487eaa82!2sTHE%20PASSENGER%20Kastoria!5e0!3m2!1sen!2sgr!4v1779214104203!5m2!1sen!2sgr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="The Passenger location on Google Maps"></iframe>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">The Passenger</div>
+    <div class="footer-legal">THE PASSENGER &mdash; GRIGORIOS SOULIOS EE &middot; Kastoria, Greece</div>
+    <button class="footer-back-top magnetic-el" id="backToTop">
+      <svg viewBox="0 0 24 24"><polyline points="18 15 12 9 6 15"/></svg>
+      Back to top
+    </button>
+  </div>
+</footer>
+
+
+
+<!-- ==================== SCRIPTS ==================== -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+
+<script>
+/* ============================================
+   INITIALIZATION & LOADER
+   ============================================ */
+(() => {
+  'use strict';
+
+  gsap.registerPlugin(ScrollTrigger);
+
+  // ---- Loader ----
+  const loader = document.getElementById('loader');
+  const loaderLogo = document.getElementById('loaderLogo');
+  const loaderLine = document.getElementById('loaderLine');
+  const loaderSub = document.getElementById('loaderSub');
+
+  const loaderTl = gsap.timeline({
+    onComplete: () => {
+      loader.classList.add('hidden');
+      initSite();
+    }
+  });
+
+  loaderTl
+    .to(loaderLogo, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out' })
+    .add(() => loaderLine.classList.add('active'), '-=0.3')
+    .to(loaderSub, { opacity: 1, duration: 0.6, ease: 'power2.out' }, '-=0.5')
+    .to({}, { duration: 0.8 })
+    .to([loaderLogo, loaderSub, loaderLine], { opacity: 0, duration: 0.4, ease: 'power2.in' });
+
+
+  function initSite() {
+    initNavigation();
+    initHeroAnimations();
+    initScrollReveals();
+    initMenuFilter();
+    initMagneticElements();
+    initParallaxLayers();
+    initSVGAnimations();
+    initGalleryEffects();
+    initBackToTop();
+    initSmoothScroll();
+  }
+
+
+  /* ============================================
+     NAVIGATION
+     ============================================ */
+  function initNavigation() {
+    const nav = document.getElementById('mainNav');
+    const toggle = document.getElementById('navToggle');
+    const links = document.getElementById('navLinks');
+
+    // Scroll effect
+    ScrollTrigger.create({
+      start: 'top -80',
+      end: 99999,
+      toggleClass: { targets: nav, className: 'scrolled' }
+    });
+
+    // Mobile toggle
+    toggle.addEventListener('click', () => {
+      toggle.classList.toggle('active');
+      links.classList.toggle('open');
+    });
+
+    // Close on link click
+    links.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        toggle.classList.remove('active');
+        links.classList.remove('open');
+      });
+    });
+  }
+
+
+  /* ============================================
+     HERO ANIMATIONS
+     ============================================ */
+  function initHeroAnimations() {
+    const tl = gsap.timeline({ delay: 0.2 });
+
+    // Animate hero bg image
+    tl.to('.hero-img-container img', {
+      scale: 1,
+      duration: 2,
+      ease: 'power2.out'
+    });
+
+    // Overline
+    tl.to('#heroOverline', {
+      opacity: 1,
+      duration: 0.8,
+      ease: 'power2.out'
+    }, '-=1.5');
+
+    // Title words stagger
+    const words = document.querySelectorAll('.hero-title .word span');
+    tl.to(words, {
+      y: 0,
+      duration: 1.2,
+      stagger: 0.15,
+      ease: 'expo.out'
+    }, '-=1.2');
+
+    // Subtitle
+    tl.to('#heroSubtitle', {
+      opacity: 1,
+      duration: 0.8,
+      ease: 'power2.out'
+    }, '-=0.6');
+
+    // CTA group
+    tl.to('#heroCta', {
+      opacity: 1,
+      duration: 0.6,
+      ease: 'power2.out'
+    }, '-=0.4');
+
+    // Scroll indicator
+    tl.to('#heroScroll', {
+      opacity: 1,
+      duration: 0.6,
+      ease: 'power2.out'
+    }, '-=0.2');
+
+    // Hero parallax on scroll
+    gsap.to('.hero-img-container img', {
+      yPercent: 20,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.hero',
+        start: 'top top',
+        end: 'bottom top',
+        scrub: true
+      }
+    });
+
+    gsap.to('.hero-content', {
+      yPercent: 40,
+      opacity: 0,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.hero',
+        start: 'top top',
+        end: '60% top',
+        scrub: true
+      }
+    });
+
+    // Fade out scroll indicator quickly on scroll
+    gsap.to('#heroScroll', {
+      opacity: 0,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.hero',
+        start: 'top top',
+        end: '15% top',
+        scrub: true
+      }
+    });
+  }
+
+
+  /* ============================================
+     SCROLL REVEAL ANIMATIONS
+     ============================================ */
+  function initScrollReveals() {
+    // Reveal-up elements
+    gsap.utils.toArray('.reveal-up').forEach(el => {
+      gsap.to(el, {
+        opacity: 1,
+        y: 0,
+        duration: 1,
+        ease: 'power3.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 85%',
+          toggleActions: 'play none none none'
+        }
+      });
+    });
+
+    // Reveal-fade elements
+    gsap.utils.toArray('.reveal-fade').forEach(el => {
+      gsap.to(el, {
+        opacity: 1,
+        duration: 1.2,
+        ease: 'power2.out',
+        scrollTrigger: {
+          trigger: el,
+          start: 'top 85%',
+          toggleActions: 'play none none none'
+        }
+      });
+    });
+
+    // Staggered menu cards
+    ScrollTrigger.batch('.menu-card', {
+      onEnter: (elements) => {
+        gsap.to(elements, {
+          opacity: 1,
+          y: 0,
+          stagger: 0.1,
+          duration: 0.8,
+          ease: 'power3.out'
+        });
+      },
+      start: 'top 88%'
+    });
+
+    // Feature cards stagger
+    ScrollTrigger.batch('.feature-card', {
+      onEnter: (elements) => {
+        gsap.to(elements, {
+          opacity: 1,
+          y: 0,
+          stagger: 0.12,
+          duration: 0.9,
+          ease: 'power3.out'
+        });
+      },
+      start: 'top 85%'
+    });
+
+    // Gallery items
+    ScrollTrigger.batch('.gallery-item', {
+      onEnter: (elements) => {
+        gsap.to(elements, {
+          opacity: 1,
+          y: 0,
+          stagger: 0.15,
+          duration: 1,
+          ease: 'power3.out'
+        });
+      },
+      start: 'top 88%'
+    });
+  }
+
+
+  /* ============================================
+     MENU FILTER
+     ============================================ */
+  function initMenuFilter() {
+    const filterBtns = document.querySelectorAll('.menu-filter-btn');
+    const menuCards = document.querySelectorAll('.menu-card');
+    const catTitle = document.getElementById('menuCatTitle');
+
+    const categoryNames = {
+      coffee: 'Coffee & Beverages',
+      cocktails: 'Signature Cocktails & Spirits',
+      wine: 'Wine Cellar & Beer Taps',
+      bites: 'All-Day Bistro Bites'
+    };
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        filterBtns.forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+
+        const filter = btn.dataset.filter;
+
+        // Animate category title change
+        gsap.to(catTitle, {
+          opacity: 0, y: -10, duration: 0.2, ease: 'power2.in',
+          onComplete: () => {
+            catTitle.textContent = categoryNames[filter] || filter;
+            gsap.to(catTitle, { opacity: 1, y: 0, duration: 0.4, ease: 'power2.out' });
+          }
+        });
+
+        // Step 1: Immediately hide ALL cards
+        menuCards.forEach(card => {
+          gsap.killTweensOf(card);
+          card.classList.add('hidden-card');
+          gsap.set(card, { opacity: 0, y: 30, scale: 0.97 });
+        });
+
+        // Step 2: Show and animate only matching cards
+        let delay = 0;
+        menuCards.forEach(card => {
+          if (card.dataset.category === filter) {
+            card.classList.remove('hidden-card');
+            gsap.to(card, {
+              opacity: 1, y: 0, scale: 1,
+              duration: 0.5,
+              ease: 'power2.out',
+              delay: delay
+            });
+            delay += 0.08;
+          }
+        });
+      });
+    });
+  }
+
+
+  /* ============================================
+     MAGNETIC ELEMENTS
+     ============================================ */
+  function initMagneticElements() {
+    if ('ontouchstart' in window) return;
+
+    const magneticEls = document.querySelectorAll('.magnetic-el');
+
+    magneticEls.forEach(el => {
+      el.addEventListener('mousemove', (e) => {
+        const rect = el.getBoundingClientRect();
+        const x = e.clientX - rect.left - rect.width / 2;
+        const y = e.clientY - rect.top - rect.height / 2;
+
+        gsap.to(el, {
+          x: x * 0.3,
+          y: y * 0.3,
+          duration: 0.4,
+          ease: 'power2.out'
+        });
+      });
+
+      el.addEventListener('mouseleave', () => {
+        gsap.to(el, {
+          x: 0,
+          y: 0,
+          duration: 0.7,
+          ease: 'elastic.out(1, 0.5)'
+        });
+      });
+    });
+  }
+
+
+  /* ============================================
+     PARALLAX LAYERS
+     ============================================ */
+  function initParallaxLayers() {
+    // Narrative image parallax
+    gsap.to('.narrative-img-wrap img', {
+      yPercent: -10,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.narrative',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1
+      }
+    });
+
+    // Narrative float badge
+    gsap.to('.narrative-float-badge', {
+      y: -30,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.narrative',
+        start: 'top bottom',
+        end: 'bottom top',
+        scrub: 1.5
+      }
+    });
+
+    // Section label parallax (drift slightly)
+    gsap.utils.toArray('.section-label').forEach(label => {
+      gsap.to(label, {
+        x: 20,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: label,
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 2
+        }
+      });
+    });
+  }
+
+
+  /* ============================================
+     SVG ANIMATIONS
+     ============================================ */
+  function initSVGAnimations() {
+    // Animate acoustic wave lines
+    const waveLines = document.querySelectorAll('.acoustic-waves path');
+    waveLines.forEach((path, i) => {
+      gsap.to(path, {
+        attr: { d: path.getAttribute('d').replace(/Q(\d+),(\d+)/g, (match, x, y) => {
+          const newY = parseInt(y) + (i % 2 === 0 ? 30 : -30);
+          return `Q${x},${newY}`;
+        })},
+        duration: 3 + i * 0.5,
+        repeat: -1,
+        yoyo: true,
+        ease: 'sine.inOut'
+      });
+    });
+
+    // Hero wave path animation
+    gsap.to('.wave-path-animate', {
+      attr: { d: 'M0,50 C240,80 480,30 720,60 C960,90 1200,20 1440,55' },
+      duration: 4,
+      repeat: -1,
+      yoyo: true,
+      ease: 'sine.inOut'
+    });
+  }
+
+
+  /* ============================================
+     GALLERY EFFECTS
+     ============================================ */
+  function initGalleryEffects() {
+    // Only apply hover effects to items with real images
+    const imageItems = document.querySelectorAll('.gallery-item:not(.gallery-placeholder)');
+
+    imageItems.forEach(item => {
+      const img = item.querySelector('img');
+      if (!img) return;
+
+      item.addEventListener('mousemove', (e) => {
+        const rect = item.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+
+        gsap.to(img, {
+          rotateY: x * 5,
+          rotateX: -y * 5,
+          duration: 0.5,
+          ease: 'power2.out',
+          transformPerspective: 800
+        });
+      });
+
+      item.addEventListener('mouseleave', () => {
+        gsap.to(img, {
+          rotateY: 0,
+          rotateX: 0,
+          duration: 0.8,
+          ease: 'elastic.out(1, 0.6)'
+        });
+      });
+    });
+
+    // Gallery scroll-triggered scale for real images only
+    gsap.utils.toArray('.gallery-item:not(.gallery-placeholder) img').forEach(img => {
+      gsap.fromTo(img,
+        { scale: 1.15 },
+        {
+          scale: 1,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: img.closest('.gallery-item'),
+            start: 'top bottom',
+            end: 'bottom top',
+            scrub: 1.5
+          }
+        }
+      );
+    });
+  }
+
+
+  /* ============================================
+     BACK TO TOP
+     ============================================ */
+  function initBackToTop() {
+    document.getElementById('backToTop').addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+
+
+  /* ============================================
+     SMOOTH SCROLL FOR ANCHORS
+     ============================================ */
+  function initSmoothScroll() {
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', (e) => {
+        const href = anchor.getAttribute('href');
+        if (href === '#') return;
+        e.preventDefault();
+        const target = document.querySelector(href);
+        if (target) {
+          const offset = window.innerWidth < 768 ? 60 : 80;
+          const top = target.getBoundingClientRect().top + window.pageYOffset - offset;
+          window.scrollTo({ top, behavior: 'smooth' });
+        }
+      });
+    });
+  }
+
+})();
+</script>
+
+</body>
+</html>
